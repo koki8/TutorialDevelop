@@ -1,5 +1,7 @@
 package com.techacademy.controller;
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,6 +53,12 @@ public class UserController {
     public String returnList(Model model) {
         model.addAttribute("userlist", userService.getUserList());
         return "user/list";
+    }
+
+    @RequestMapping(path="list", params="deleteRun")
+    public String deleteRun(@RequestParam(name="idck") Set<Integer> idck, Model model) {
+        userService.deleteUser(idck);
+        return "redirect:list";
     }
 
 }
