@@ -61,10 +61,20 @@ public class UserController {
         }
 
         @RequestMapping(path="change", params="changeRun")
-        public String changeRun(@ModelAttribute User user, Model model) {
+        public String changeRun(@ModelAttribute @Validated User user,
+                                                    BindingResult res,
+                                                    Model model) {
+            String rtn = null;
+            if(!res.hasErrors()) {
                 userService.saveUser(user);
                 model.addAttribute("userlist", userService.getUserList());
-                return "user/list";
+                rtn = "user/list";
+            }else {
+                model.addAttribute("errmsg", messageSource.getMessage("errmsg.form.input", null, Locale.getDefault()));
+                model.addAttribute("user", user);
+                rtn = "user/change";
+            }
+           return rtn;
         }
 
         @RequestMapping(path="change", params="returnList")

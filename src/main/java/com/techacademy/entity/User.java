@@ -50,6 +50,7 @@ public class User implements Serializable{
         /** メールアドレス */
         @Column(length=50)
         @Email
+        @NotEmpty
         @Length(max=50)
         private String email;
 
