@@ -83,4 +83,10 @@ public class UserController {
         public String toRegister(@ModelAttribute User user, Model model) {
                 return "user/register";
         }
+
+        @RequestMapping(path="register", params="returnList")
+        public String returnList(@ModelAttribute User user, Model model) {
+            model.addAttribute("userlist", userService.getUserList());
+            return "user/list";
+        }
 }
