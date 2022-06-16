@@ -9,6 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
@@ -48,10 +49,13 @@ public class User implements Serializable{
 
         /** メールアドレス */
         @Column(length=50)
-        @NotEmpty
         @Email
         @Length(max=50)
         private String email;
+
+        /** 認証エンティティと関連定義 */
+        @OneToOne(mappedBy="user")
+        private Authentication authentication;
 
         public Integer getId() {
                 return id;
@@ -91,5 +95,13 @@ public class User implements Serializable{
 
         public void setEmail(String email) {
                 this.email = email;
+        }
+
+        public Authentication getAuthentication() {
+                return authentication;
+        }
+
+        public void setAuthentication(Authentication authentication) {
+                this.authentication = authentication;
         }
 }
