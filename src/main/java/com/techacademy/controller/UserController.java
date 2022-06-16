@@ -78,4 +78,9 @@ public class UserController {
                 userService.deleteUser(idck);
                 return "redirect:list";
         }
+
+        @RequestMapping(path="list", params="toRegister")
+        public String toRegister(@ModelAttribute User user, Model model) {
+                return "user/register";
+        }
 }
